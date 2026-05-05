@@ -194,7 +194,7 @@ func QuerySim(cellID int, nitroPrice float64, grainPrice float64) ([]models.Simu
 
 	var result []models.Simulation
 	
-	for n := 89.0; n <= 268.0; n += 1 {
+	for n := 0.0; n <= 268.0; n += 1 {
 
 		p := evalPoly2(coef, n)
 

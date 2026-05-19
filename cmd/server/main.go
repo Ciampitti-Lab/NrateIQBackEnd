@@ -169,6 +169,19 @@ func main() {
         c.JSON(400, gin.H{"error": "cell must be an integer"})
         return
     }
+
+	// planting_date filter
+    plantingDateStr := c.Query("planting_date")
+    if plantingDateStr == "" {
+        c.JSON(400, gin.H{"error": "planting_date parameter is required"})
+        return
+    }
+
+    plantingDate, err := strconv.Atoi(plantingDateStr)
+    if err != nil {
+        c.JSON(400, gin.H{"error": "planting_date must be an integer"})
+        return
+    }
 	// Optional parameters (Nitrogen and grain price)
 	nitroPriceStr := c.Query("nitro_price")
 	
@@ -198,7 +211,7 @@ func main() {
 		grainPrice = 4
 	}
 	// Quering database
-    sims, err := database.QuerySim(cellID, nitroPrice, grainPrice)
+    sims, err := database.QuerySim(cellID,plantingDate, nitroPrice, grainPrice)
     if err != nil {
         c.JSON(500, gin.H{"error": "database query failed"})
         return
